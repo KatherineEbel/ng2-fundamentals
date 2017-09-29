@@ -1,6 +1,9 @@
 import {NgModule, SystemJsNgModuleLoaderConfig} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {EventsAppComponent} from './events-app.component';
+import {EventsListComponent} from './events/events-list.component';
+import {EventThumbnailComponent} from './events/event-thumbnail.component';
+import {NavBarComponent} from './nav/navbar.component';
 /**
  * Created by kathy on 9/28/17.
  */
@@ -10,7 +13,10 @@ import {EventsAppComponent} from './events-app.component';
         BrowserModule
     ],
     declarations: [
-        EventsAppComponent
+        EventsAppComponent,
+        EventsListComponent,
+        EventThumbnailComponent,
+        NavBarComponent
     ],
     bootstrap: [EventsAppComponent]
 })
