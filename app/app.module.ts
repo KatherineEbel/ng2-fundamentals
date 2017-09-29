@@ -4,6 +4,8 @@ import {EventsAppComponent} from './events-app.component';
 import {EventsListComponent} from './events/events-list.component';
 import {EventThumbnailComponent} from './events/event-thumbnail.component';
 import {NavBarComponent} from './nav/navbar.component';
+import {EventService} from './events/shared/event.service';
+import {ToastrService} from './common/toastr.service';
 /**
  * Created by kathy on 9/28/17.
  */
@@ -18,6 +20,7 @@ import {NavBarComponent} from './nav/navbar.component';
         EventThumbnailComponent,
         NavBarComponent
     ],
+    providers: [EventService, ToastrService],
     bootstrap: [EventsAppComponent]
 })
 export class AppModule {}
