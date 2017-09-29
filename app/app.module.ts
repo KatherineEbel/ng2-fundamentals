@@ -15,6 +15,7 @@ import {NavBarComponent} from './nav/navbar.component';
 import {ToastrService} from './common/toastr.service';
 import {appRoutes} from './routes';
 import {Error404Component} from './errors/404.component';
+import {AuthService} from './user/auth.service';
 /**
  * Created by kathy on 9/28/17.
  */
@@ -41,6 +42,7 @@ const checkDirtyState = (component: CreateEventComponent) => component.isDirty ?
       ToastrService,
       EventRouteActivatorService,
       EventsListResolverService,
+      AuthService,
       {
         provide: 'canDeactivateCreateEvent',
         useValue: checkDirtyState
