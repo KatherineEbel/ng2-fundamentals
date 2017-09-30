@@ -16,6 +16,8 @@ import {ToastrService} from './common/toastr.service';
 import {appRoutes} from './routes';
 import {Error404Component} from './errors/404.component';
 import {AuthService} from './user/auth.service';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {CreateSessionComponent} from "./events/event-details/create-session.component";
 /**
  * Created by kathy on 9/28/17.
  */
@@ -26,6 +28,8 @@ const checkDirtyState = (component: CreateEventComponent) => component.isDirty ?
 @NgModule({
     imports: [
       BrowserModule,
+      FormsModule,
+      ReactiveFormsModule,
       RouterModule.forRoot(appRoutes)
     ],
     declarations: [
@@ -35,7 +39,8 @@ const checkDirtyState = (component: CreateEventComponent) => component.isDirty ?
       NavBarComponent,
       EventDetailsComponent,
       CreateEventComponent,
-      Error404Component
+      Error404Component,
+      CreateSessionComponent
     ],
     providers: [
       EventService,
