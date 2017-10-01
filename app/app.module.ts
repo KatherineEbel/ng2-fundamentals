@@ -1,3 +1,6 @@
+/**
+ * Created by kathy on 9/28/17.
+ */
 import {NgModule, SystemJsNgModuleLoaderConfig} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
@@ -13,20 +16,19 @@ import {
 } from './events/index'
 import {EventsAppComponent} from './events-app.component';
 import {NavBarComponent} from './nav/navbar.component';
-import {ToastrService} from './common/toastr.service';
+import { TOASTR_TOKEN, Toastr } from './common/toastr.service';
 import { CollapsibleWellComponent } from "./common/collapsible-well.component";
-import {appRoutes} from './routes';
+import { appRoutes } from './routes';
 import {Error404Component} from './errors/404.component';
 import {AuthService} from './user/auth.service';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CreateSessionComponent} from "./events/event-details/create-session.component";
 import {SessionListComponent} from "./events/event-details/session-list.component";
-/**
- * Created by kathy on 9/28/17.
- */
 
 const checkDirtyState = (component: CreateEventComponent) => component.isDirty ?
     window.confirm('You have not saved this event, do you really want to cancel?') : true;
+
+declare let toastr: Toastr;
 
 @NgModule({
     imports: [
@@ -50,7 +52,7 @@ const checkDirtyState = (component: CreateEventComponent) => component.isDirty ?
     ],
     providers: [
       EventService,
-      ToastrService,
+      { provide: TOASTR_TOKEN, useValue: toastr },
       EventRouteActivatorService,
       EventsListResolverService,
       AuthService,

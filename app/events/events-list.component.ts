@@ -1,11 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {EventService} from './shared/event.service';
-import {ToastrService} from '../common/toastr.service';
-import {ActivatedRoute} from '@angular/router';
-import {IEvent} from './shared/event.model';
 /**
  * Created by kathy on 9/28/17.
  */
+import {Component, OnInit} from '@angular/core';
+import {EventService} from './shared/event.service';
+import {ActivatedRoute} from '@angular/router';
+import {IEvent} from './shared/event.model';
 @Component({
     template: `
         <div>
@@ -13,7 +12,7 @@ import {IEvent} from './shared/event.model';
             <hr />
             <div class="row">
             <div class="col-md-5" *ngFor="let event of events" >
-                <event-thumbnail (click)="handleThumbnailClick(event.name)" [event]="event" ></event-thumbnail>
+                <event-thumbnail [event]="event" ></event-thumbnail>
             </div>
             </div>
         </div>
@@ -22,14 +21,9 @@ import {IEvent} from './shared/event.model';
 export class EventsListComponent implements OnInit {
   events: IEvent[];
   constructor(private _eventService: EventService,
-              private _toastrService: ToastrService,
               private _route: ActivatedRoute) {}
 
   ngOnInit() {
     this.events = this._route.snapshot.data['events'];
-  }
-
-  handleThumbnailClick(eventName) {
-    this._toastrService.success(eventName);
   }
 }
