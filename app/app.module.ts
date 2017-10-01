@@ -8,7 +8,8 @@ import {
   EventService,
   CreateEventComponent,
   EventRouteActivatorService,
-  EventsListResolverService
+  EventsListResolverService,
+  DurationPipe
 } from './events/index'
 import {EventsAppComponent} from './events-app.component';
 import {NavBarComponent} from './nav/navbar.component';
@@ -44,7 +45,8 @@ const checkDirtyState = (component: CreateEventComponent) => component.isDirty ?
       Error404Component,
       CreateSessionComponent,
       SessionListComponent,
-      CollapsibleWellComponent
+      CollapsibleWellComponent,
+      DurationPipe
     ],
     providers: [
       EventService,
