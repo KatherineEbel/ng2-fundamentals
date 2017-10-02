@@ -16,8 +16,13 @@ import {
 } from './events/index'
 import {EventsAppComponent} from './events-app.component';
 import {NavBarComponent} from './nav/navbar.component';
-import { TOASTR_TOKEN, Toastr } from './common/toastr.service';
-import { CollapsibleWellComponent } from "./common/collapsible-well.component";
+import { JQ_TOKEN,
+         TOASTR_TOKEN,
+         CollapsibleWellComponent,
+         SimpleModalComponent,
+         ModalTriggerDirective,
+         Toastr } from './common/index';
+import {} from "./common/collapsible-well.component";
 import { appRoutes } from './routes';
 import {Error404Component} from './errors/404.component';
 import {AuthService} from './user/auth.service';
@@ -29,7 +34,7 @@ const checkDirtyState = (component: CreateEventComponent) => component.isDirty ?
     window.confirm('You have not saved this event, do you really want to cancel?') : true;
 
 declare let toastr: Toastr;
-
+declare let jQuery: Object;
 @NgModule({
     imports: [
       BrowserModule,
@@ -48,11 +53,14 @@ declare let toastr: Toastr;
       CreateSessionComponent,
       SessionListComponent,
       CollapsibleWellComponent,
-      DurationPipe
+      DurationPipe,
+      SimpleModalComponent,
+      ModalTriggerDirective
     ],
     providers: [
       EventService,
       { provide: TOASTR_TOKEN, useValue: toastr },
+      {provide: JQ_TOKEN, useValue: jQuery },
       EventRouteActivatorService,
       EventsListResolverService,
       AuthService,
