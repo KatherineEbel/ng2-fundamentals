@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {EventService} from '../shared/event.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import {ISession} from "../shared/session.model";
+import { IEvent } from '../shared/event.model';
 
 @Component({
   templateUrl: '/app/events/event-details/event-details.component.html',
@@ -19,12 +20,13 @@ export class EventDetailsComponent implements OnInit {
 
   constructor(private _eventService: EventService,
               private _route: ActivatedRoute) {}
+
   ngOnInit(): void {
-    this._route.params.forEach((params: Params) => {
-      this.event = this._eventService.getEvent(+params['id'])
-      this.addMode = false;
+    this._route.data.forEach((data) => {
+        this.event = data['event'];
+        this.event = data['event'];
+        this.addMode = false;
     });
-    // this.event = this._eventService.getEvent(+this._route.snapshot.params['id']);
   }
 
   addSession() {
@@ -37,8 +39,8 @@ export class EventDetailsComponent implements OnInit {
       .apply(null, this.event.sessions.map(s => s.id));
     session.id = nextId + 1;
     this.event.sessions.push(session);
-    this._eventService.updateEvent(this.event);
-    this.addMode = false;
+    this._eventService.saveEvent(this.event).subscribe();
+    this.addMode = false
   }
 
   cancelAddSession() {

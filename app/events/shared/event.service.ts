@@ -3,23 +3,32 @@ import { Subject } from 'rxjs/Subject';
 import {IEvent} from './event.model';
 import {Observable} from 'rxjs/Observable';
 import { ISession } from './session.model';
+import { Headers, Http, RequestOptions, Response } from '@angular/http';
+import 'rxjs/Rx';
 
 @Injectable()
 export class EventService {
+
+  constructor(private _http: Http) {}
   getEvents(): Observable<IEvent[]> {
-    const subject = new Subject<IEvent[]>();
-    setTimeout(() => { subject.next(EVENTS); subject.complete(); }, 100);
-    return subject;
+    return this._http.get('/api/events')
+      .map((res: Response) => <IEvent[]>res.json())
+      .catch(this.handleError);
   }
 
-  getEvent(id:number): IEvent {
-    return EVENTS.find(e => e.id === id)
+  getEvent(id:number): Observable<IEvent> {
+    return this._http.get(`/api/events/${id}`)
+      .map((res: Response) => <IEvent>res.json())
+      .catch(this.handleError);
   }
 
-  saveEvent(event) {
-    event.id = 999;
-    event.sessions = [];
-    EVENTS.push(event);
+  saveEvent(event): Observable<IEvent> {
+    const headers = new Headers({ 'Content-Type': 'application/json'});
+    const options = new RequestOptions({ headers: headers });
+
+    return this._http.post('/api/events', event, options)
+      .map((response: Response) => response.json())
+      .catch(this.handleError);
   }
 
   updateEvent(event: IEvent) {
@@ -28,23 +37,13 @@ export class EventService {
   }
 
   searchSessions (searchTerm: string) {
-    const term = searchTerm.toLocaleLowerCase();
-    let results: ISession[] = [];
-    let emitter: EventEmitter<ISession[]>;
+    return this._http.get(`/api/sessions/search?search=${searchTerm}`)
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
+  }
 
-    EVENTS.forEach(e => {
-      let matchingSessions = e.sessions
-        .filter(s => s.name.toLocaleLowerCase().indexOf(searchTerm) > -1);
-      matchingSessions = matchingSessions.map((session:any) => {
-        session.eventId = e.id;
-        return session;
-      });
-      results = results.concat(matchingSessions);
-    })
-
-    emitter = new EventEmitter(true);
-    setTimeout(() => emitter.emit(results), 100);
-    return emitter;
+  private handleError (err: Response) {
+    return Observable.throw(err.statusText);
   }
 }
 

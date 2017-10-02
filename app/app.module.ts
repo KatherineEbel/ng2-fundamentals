@@ -4,13 +4,14 @@
 import {NgModule, SystemJsNgModuleLoaderConfig} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
+import { HttpModule } from '@angular/http';
 import {
   EventsListComponent,
   EventThumbnailComponent,
   EventDetailsComponent,
   EventService,
   CreateEventComponent,
-  EventRouteActivatorService,
+  EventResolverService,
   EventsListResolverService,
   DurationPipe,
   UpvoteComponent,
@@ -25,7 +26,6 @@ import { JQ_TOKEN,
          SimpleModalComponent,
          ModalTriggerDirective,
          Toastr } from './common/index';
-import {} from "./common/collapsible-well.component";
 import { appRoutes } from './routes';
 import {Error404Component} from './errors/404.component';
 import {AuthService} from './user/auth.service';
@@ -43,6 +43,7 @@ declare let jQuery: Object;
       BrowserModule,
       FormsModule,
       ReactiveFormsModule,
+      HttpModule,
       RouterModule.forRoot(appRoutes)
     ],
     declarations: [
@@ -66,7 +67,7 @@ declare let jQuery: Object;
       EventService,
       { provide: TOASTR_TOKEN, useValue: toastr },
       {provide: JQ_TOKEN, useValue: jQuery },
-      EventRouteActivatorService,
+      EventResolverService,
       EventsListResolverService,
       AuthService,
       {
