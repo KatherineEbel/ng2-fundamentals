@@ -45,7 +45,7 @@ export class SessionListComponent implements OnChanges {
   }
 
   toggleVote (session: ISession) {
-    const voter = this._auth.currentUser.userName;
+    const voter = this._auth.currentUser.username;
     if (this._voterService.userHasVoted(session, voter)) {
       this._voterService.deleteVoter(this.eventId, session, voter);
     } else {
@@ -57,6 +57,6 @@ export class SessionListComponent implements OnChanges {
   }
 
   userHasVoted (session: ISession) {
-    return this._voterService.userHasVoted(session, this._auth.currentUser.userName)
+    return this._voterService.userHasVoted(session, this._auth.currentUser.username)
   }
 }
